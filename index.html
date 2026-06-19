@@ -1,643 +1,796 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Voces que Hacen · Tour de Invierno 2026</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La Ruta del Golden · Tour de Invierno 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:      #060F1C;
-      --bg-map:  #081628;
-      --bg-card: #0C1A2C;
-      --bg-edit: #060F1C;
-      --bg-leg:  rgba(255,255,255,0.025);
-      --arg:     #102035;
-      --arg-s:   #1A3A68;
-      --gold:    #E9A440;
-      --gold-l:  rgba(233,164,64,0.14);
-      --gold-g:  rgba(233,164,64,0.26);
-      --green:   #4DAD88;
-      --green-l: rgba(77,173,136,0.14);
-      --text:    #EDE8DF;
-      --ts:      #7596B5;
-      --tm:      #435F78;
-      --bd:      rgba(255,255,255,0.07);
-      --r:       7px;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#060F1C;--bg-map:#081628;--bg-card:#0C1A2C;--bg-edit:#060F1C;--bg-leg:rgba(255,255,255,.025);
+      --arg:#102035;--arg-s:#1A3A68;
+      --gold:#E9A440;--gold-l:rgba(233,164,64,.14);--gold-g:rgba(233,164,64,.26);
+      --green:#4DAD88;--green-l:rgba(77,173,136,.14);
+      --text:#EDE8DF;--ts:#7596B5;--tm:#435F78;--bd:rgba(255,255,255,.07);--r:7px;
     }
+    html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5}
+    .app{display:flex;flex-direction:column;height:100vh}
 
-    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.5; }
-    .app { display: flex; flex-direction: column; height: 100vh; }
+    /* HEADER */
+    .hdr{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:13px 28px;border-bottom:1px solid var(--bd);background:rgba(6,15,28,.96);backdrop-filter:blur(8px);z-index:10}
+    .hdr-l{display:flex;align-items:center;gap:13px}
+    .badge{font-family:'Space Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.12em;background:var(--gold);color:#060F1C;padding:3px 7px;border-radius:2px}
+    .hdr h1{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;line-height:1}
+    .hdr h1 em{color:var(--gold);font-style:italic}
+    .hdr-r{text-align:right;font-family:'Space Mono',monospace;font-size:9px;color:var(--tm);letter-spacing:.05em;line-height:1.8}
+    .hdr-ep{color:var(--gold)}
 
-    /* ── HEADER ─────────────────────────────────────── */
-    .hdr { flex-shrink:0; display:flex; align-items:center; justify-content:space-between; padding:13px 28px; border-bottom:1px solid var(--bd); background:rgba(6,15,28,0.96); backdrop-filter:blur(8px); z-index:10; }
-    .hdr-l { display:flex; align-items:center; gap:13px; }
-    .badge { font-family:'Space Mono',monospace; font-size:8px; font-weight:700; letter-spacing:.12em; background:var(--gold); color:#060F1C; padding:3px 7px; border-radius:2px; }
-    .hdr h1 { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; line-height:1; }
-    .hdr h1 em { color:var(--gold); font-style:italic; }
-    .hdr-r { text-align:right; font-family:'Space Mono',monospace; font-size:9px; color:var(--tm); letter-spacing:.05em; line-height:1.8; }
-    .hdr-ep { color:var(--gold); }
+    /* MAIN */
+    .main{flex:1;display:grid;grid-template-columns:365px 1fr;overflow:hidden;min-height:0}
 
-    /* ── MAIN ───────────────────────────────────────── */
-    .main { flex:1; display:grid; grid-template-columns:365px 1fr; overflow:hidden; min-height:0; }
+    /* MAP */
+    .map-p{background:var(--bg-map);border-right:1px solid var(--bd);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .map-p::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 68% 30%,rgba(233,164,64,.05) 0%,transparent 50%),radial-gradient(circle at 20% 75%,rgba(77,173,136,.04) 0%,transparent 50%);pointer-events:none}
+    .map-lbl{position:absolute;top:18px;left:18px;font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--tm)}
+    .arg-svg{width:100%;max-width:280px;height:auto}
+    .arg-shape{fill:var(--arg);stroke:var(--arg-s);stroke-width:1.5;stroke-linejoin:round}
+    .pata-zone{fill:rgba(77,173,136,.05);stroke:rgba(77,173,136,.18);stroke-width:1;stroke-dasharray:4 4}
+    @keyframes drawRoute{to{stroke-dashoffset:0}}
+    @keyframes fadeGreen{from{opacity:0}to{opacity:.72}}
+    .r-gold{fill:none;stroke:var(--gold);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2000;stroke-dashoffset:2000}
+    .r-gold.r1{animation:drawRoute 1.6s cubic-bezier(.4,0,.2,1) .4s forwards}
+    .r-gold.r3{animation:drawRoute 1.6s cubic-bezier(.4,0,.2,1) 2.7s forwards}
+    .r-green{fill:none;stroke:var(--green);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:7 5;opacity:0;animation:fadeGreen .7s ease-out 1.8s forwards}
+    @keyframes pinPulse{0%{r:7;stroke-opacity:.55}100%{r:22;stroke-opacity:0}}
+    .pin-g{cursor:pointer}
+    .pin-ring{fill:none;stroke-width:2;stroke-opacity:0}
+    .pin-ring.on{animation:pinPulse 1.9s ease-out infinite}
+    .ring-gold{stroke:var(--gold)}.ring-green{stroke:var(--green)}
+    .pin-dot{transition:r .15s}.dot-gold{fill:var(--gold)}.dot-green{fill:var(--green)}
+    .pin-lbl{font-family:'Inter',sans-serif;font-size:8.5px;font-weight:500;fill:var(--text);pointer-events:none;paint-order:stroke fill;stroke:var(--bg-map);stroke-width:3}
+    .home-dot{fill:var(--tm)}.home-lbl{font-family:'Inter',sans-serif;font-size:7.5px;fill:var(--tm);pointer-events:none;paint-order:stroke fill;stroke:var(--bg-map);stroke-width:2.5}
+    .map-leg{position:absolute;bottom:16px;left:16px;display:flex;flex-direction:column;gap:5px}
+    .leg-i{display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:7.5px;color:var(--tm);letter-spacing:.06em}
+    .leg-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 
-    /* ── MAP ────────────────────────────────────────── */
-    .map-p { background:var(--bg-map); border-right:1px solid var(--bd); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-    .map-p::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 68% 30%,rgba(233,164,64,.05) 0%,transparent 50%), radial-gradient(circle at 20% 75%,rgba(77,173,136,.04) 0%,transparent 50%); pointer-events:none; }
-    .map-lbl { position:absolute; top:18px; left:18px; font-family:'Space Mono',monospace; font-size:7.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--tm); }
-    .arg-svg { width:100%; max-width:280px; height:auto; }
-    .arg-shape { fill:var(--arg); stroke:var(--arg-s); stroke-width:1.5; stroke-linejoin:round; }
-    .pata-zone { fill:rgba(77,173,136,.05); stroke:rgba(77,173,136,.18); stroke-width:1; stroke-dasharray:4 4; }
+    /* STOPS PANEL */
+    .stops-p{overflow-y:auto;padding:20px 24px;scrollbar-width:thin;scrollbar-color:var(--bd) transparent}
+    .stops-p::-webkit-scrollbar{width:3px}.stops-p::-webkit-scrollbar-track{background:transparent}.stops-p::-webkit-scrollbar-thumb{background:var(--bd);border-radius:2px}
+    .stops-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+    .stops-lbl{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--tm)}
+    .ep-ct{font-family:'Space Mono',monospace;font-size:8.5px;color:var(--gold)}
 
-    @keyframes drawRoute { to { stroke-dashoffset:0; } }
-    @keyframes fadeGreen { from { opacity:0; } to { opacity:.72; } }
+    /* ── CONNECTORS ───────────────────────────────── */
+    .conn-wrap{position:relative;padding:3px 0 3px 32px;margin:-1px 0}
+    .conn-wrap::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:1.5px;background:var(--bd)}
+    .conn-bar{position:relative;display:flex;align-items:center;gap:8px;padding:5px 10px;border:1px dashed rgba(255,255,255,.07);border-radius:5px;cursor:pointer;background:rgba(255,255,255,.015);transition:all .15s}
+    .conn-bar::before{content:'';position:absolute;left:-18px;width:7px;height:7px;border-radius:50%;background:var(--bg-map);border:1.5px solid var(--tm);transition:border-color .15s}
+    .conn-bar:hover,.conn-bar.open{border-color:rgba(233,164,64,.3);background:rgba(233,164,64,.03)}
+    .conn-bar:hover::before,.conn-bar.open::before{border-color:var(--gold)}
+    .conn-bar.has-data::before{border-color:rgba(233,164,64,.45)}
+    .conn-down{font-size:10px;color:var(--tm);flex-shrink:0}
+    .conn-route{font-family:'Space Mono',monospace;font-size:8px;color:var(--tm);white-space:nowrap;flex-shrink:0}
+    .conn-sum{flex:1;font-size:10px;color:var(--ts);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+    .conn-btn{font-family:'Inter',sans-serif;font-size:9.5px;background:none;border:1px solid var(--bd);color:var(--tm);padding:2px 7px;border-radius:3px;cursor:pointer;transition:all .15s;flex-shrink:0;white-space:nowrap}
+    .conn-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .conn-form{display:none;margin-top:4px;padding:12px;border:1px solid var(--bd);border-radius:5px;background:var(--bg-card)}
+    .conn-form.open{display:block}
 
-    .r-gold { fill:none; stroke:var(--gold); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:2000; stroke-dashoffset:2000; }
-    .r-gold.r1 { animation:drawRoute 1.6s cubic-bezier(.4,0,.2,1) .4s forwards; }
-    .r-gold.r3 { animation:drawRoute 1.6s cubic-bezier(.4,0,.2,1) 2.7s forwards; }
-    .r-green { fill:none; stroke:var(--green); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:7 5; opacity:0; animation:fadeGreen .7s ease-out 1.8s forwards; }
+    /* CARD */
+    .card{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:2px;overflow:hidden;background:var(--bg-card);transition:border-color .2s,box-shadow .2s}
+    .card:hover{border-color:rgba(255,255,255,.12)}
+    .card.sel{border-color:var(--gold);box-shadow:0 0 18px var(--gold-g)}
+    .card.moto.sel{border-color:var(--green);box-shadow:0 0 18px rgba(77,173,136,.22)}
+    .card-h{padding:12px 14px;display:flex;align-items:flex-start;gap:10px;cursor:pointer}
+    .c-n{font-family:'Space Mono',monospace;font-size:8.5px;color:var(--tm);padding-top:3px;min-width:14px;flex-shrink:0}
+    .c-b{flex:1;min-width:0}
+    .c-city{font-family:'Playfair Display',serif;font-size:15.5px;font-weight:700;line-height:1.15}
+    .c-prov{font-size:10px;color:var(--tm);margin-top:1px}
+    .c-dates{font-family:'Space Mono',monospace;font-size:9px;color:var(--ts);margin-top:5px}
+    .c-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+    .pill{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:2px 7px;border-radius:100px;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .p-iv{background:var(--gold-l);color:var(--gold)}.p-host{background:rgba(117,150,181,.1);color:var(--ts)}.p-moto{background:var(--green-l);color:var(--green)}.p-notes{background:rgba(255,255,255,.05);color:var(--ts)}
+    .c-meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+    .status{font-family:'Space Mono',monospace;font-size:7px;font-weight:700;letter-spacing:.09em;padding:2px 5px;border-radius:2px}
+    .s-up{background:rgba(67,95,120,.2);color:var(--tm)}.s-cur{background:rgba(233,164,64,.2);color:var(--gold)}.s-past{background:rgba(0,0,0,.2);color:var(--tm)}
+    .edt-btn{font-family:'Inter',sans-serif;font-size:10.5px;background:none;border:1px solid var(--bd);color:var(--tm);padding:3px 8px;border-radius:3px;cursor:pointer;transition:all .15s;white-space:nowrap}
+    .edt-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .card.moto .edt-btn:hover{border-color:var(--green);color:var(--green)}
 
-    @keyframes pinPulse { 0%{r:7;stroke-opacity:.55} 100%{r:22;stroke-opacity:0} }
-    .pin-g { cursor:pointer; }
-    .pin-ring { fill:none; stroke-width:2; stroke-opacity:0; }
-    .pin-ring.on { animation:pinPulse 1.9s ease-out infinite; }
-    .ring-gold  { stroke:var(--gold); }
-    .ring-green { stroke:var(--green); }
-    .pin-dot { transition:r .15s; }
-    .dot-gold  { fill:var(--gold); }
-    .dot-green { fill:var(--green); }
-    .pin-lbl { font-family:'Inter',sans-serif; font-size:8.5px; font-weight:500; fill:var(--text); pointer-events:none; paint-order:stroke fill; stroke:var(--bg-map); stroke-width:3; }
-    .home-dot { fill:var(--tm); }
-    .home-lbl { font-family:'Inter',sans-serif; font-size:7.5px; fill:var(--tm); pointer-events:none; paint-order:stroke fill; stroke:var(--bg-map); stroke-width:2.5; }
+    /* EDIT AREA */
+    .c-edit{display:none;padding:0 14px 14px 38px;border-top:1px solid var(--bd)}
+    .c-edit.open{display:block}
+    .edit-in{padding-top:12px}
+    .field{margin-bottom:11px}
+    .field>label{display:block;font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--tm);margin-bottom:5px}
+    .field input,.field textarea,.field select{width:100%;background:var(--bg-edit);border:1px solid var(--bd);border-radius:4px;color:var(--text);font-family:'Inter',sans-serif;font-size:12px;padding:6px 9px;outline:none;transition:border-color .15s;resize:none}
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(233,164,64,.38)}
+    .field input::placeholder,.field textarea::placeholder{color:var(--tm)}
+    .card.moto .field input:focus,.card.moto .field textarea:focus{border-color:rgba(77,173,136,.38)}
 
-    .map-leg { position:absolute; bottom:16px; left:16px; display:flex; flex-direction:column; gap:5px; }
-    .leg-i { display:flex; align-items:center; gap:5px; font-family:'Space Mono',monospace; font-size:7.5px; color:var(--tm); letter-spacing:.06em; }
-    .leg-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+    /* Shared form elements */
+    .t-route{display:grid;grid-template-columns:1fr 22px 1fr;align-items:end;gap:5px;margin-bottom:8px}
+    .t-arrow{text-align:center;color:var(--tm);font-size:13px;padding-bottom:7px}
+    .t-row3{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:7px;margin-bottom:11px}
+    .t-chk-lbl{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ts);cursor:pointer;padding:5px 9px;background:var(--bg-edit);border:1px solid var(--bd);border-radius:4px;transition:all .15s;user-select:none;height:100%}
+    .t-chk-lbl:hover{border-color:rgba(233,164,64,.3);color:var(--text)}
+    .t-chk-lbl input[type=checkbox]{appearance:none;-webkit-appearance:none;width:14px;height:14px;border:1.5px solid var(--tm);border-radius:3px;cursor:pointer;flex-shrink:0;position:relative;background:transparent;transition:all .15s}
+    .t-chk-lbl input[type=checkbox]:checked{background:var(--gold);border-color:var(--gold)}
+    .t-chk-lbl input[type=checkbox]:checked::after{content:'✓';position:absolute;top:-2px;left:1px;font-size:10px;color:#060F1C;font-weight:700}
+    .card.moto .t-chk-lbl input[type=checkbox]:checked{background:var(--green);border-color:var(--green)}
 
-    /* ── STOPS PANEL ────────────────────────────────── */
-    .stops-p { overflow-y:auto; padding:20px 24px; scrollbar-width:thin; scrollbar-color:var(--bd) transparent; }
-    .stops-p::-webkit-scrollbar { width:3px; }
-    .stops-p::-webkit-scrollbar-track { background:transparent; }
-    .stops-p::-webkit-scrollbar-thumb { background:var(--bd); border-radius:2px; }
-    .stops-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:15px; }
-    .stops-lbl { font-family:'Space Mono',monospace; font-size:8.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--tm); }
-    .ep-ct { font-family:'Space Mono',monospace; font-size:8.5px; color:var(--gold); }
-
-    /* ── CARD ───────────────────────────────────────── */
-    .card { border:1px solid var(--bd); border-radius:var(--r); margin-bottom:9px; overflow:hidden; background:var(--bg-card); transition:border-color .2s,box-shadow .2s; }
-    .card:hover { border-color:rgba(255,255,255,.12); }
-    .card.sel      { border-color:var(--gold); box-shadow:0 0 18px var(--gold-g); }
-    .card.moto.sel { border-color:var(--green); box-shadow:0 0 18px rgba(77,173,136,.22); }
-
-    .card-h { padding:12px 14px; display:flex; align-items:flex-start; gap:10px; cursor:pointer; }
-    .c-n { font-family:'Space Mono',monospace; font-size:8.5px; color:var(--tm); padding-top:3px; min-width:14px; flex-shrink:0; }
-    .c-b { flex:1; min-width:0; }
-    .c-city { font-family:'Playfair Display',serif; font-size:15.5px; font-weight:700; line-height:1.15; }
-    .c-prov { font-size:10px; color:var(--tm); margin-top:1px; }
-    .c-dates { font-family:'Space Mono',monospace; font-size:9px; color:var(--ts); margin-top:5px; }
-    .c-pills { display:flex; flex-wrap:wrap; gap:4px; margin-top:6px; }
-    .pill { display:inline-flex; align-items:center; gap:3px; font-size:10px; padding:2px 7px; border-radius:100px; max-width:260px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .p-iv      { background:var(--gold-l); color:var(--gold); }
-    .p-host    { background:rgba(117,150,181,.1); color:var(--ts); }
-    .p-moto    { background:var(--green-l); color:var(--green); }
-    .p-notes   { background:rgba(255,255,255,.05); color:var(--ts); }
-    .p-trans-ok   { background:rgba(77,173,136,.12); color:var(--green); }
-    .p-trans-pend { background:rgba(233,164,64,.10); color:rgba(233,164,64,.85); }
-
-    .c-meta { display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex-shrink:0; }
-    .status { font-family:'Space Mono',monospace; font-size:7px; font-weight:700; letter-spacing:.09em; padding:2px 5px; border-radius:2px; }
-    .s-up   { background:rgba(67,95,120,.2); color:var(--tm); }
-    .s-cur  { background:rgba(233,164,64,.2); color:var(--gold); }
-    .s-past { background:rgba(0,0,0,.2);      color:var(--tm); }
-    .edt-btn { font-family:'Inter',sans-serif; font-size:10.5px; background:none; border:1px solid var(--bd); color:var(--tm); padding:3px 8px; border-radius:3px; cursor:pointer; transition:all .15s; white-space:nowrap; }
-    .edt-btn:hover { border-color:var(--gold); color:var(--gold); }
-    .card.moto .edt-btn:hover { border-color:var(--green); color:var(--green); }
-
-    /* ── EDIT AREA ──────────────────────────────────── */
-    .c-edit { display:none; padding:0 14px 14px 38px; border-top:1px solid var(--bd); }
-    .c-edit.open { display:block; }
-    .edit-in { padding-top:12px; }
-
-    .field { margin-bottom:11px; }
-    .field > label { display:block; font-family:'Space Mono',monospace; font-size:7.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--tm); margin-bottom:5px; }
-    .field input, .field textarea { width:100%; background:var(--bg-edit); border:1px solid var(--bd); border-radius:4px; color:var(--text); font-family:'Inter',sans-serif; font-size:12px; padding:6px 9px; outline:none; transition:border-color .15s; resize:none; }
-    .field input:focus, .field textarea:focus { border-color:rgba(233,164,64,.38); }
-    .field input::placeholder, .field textarea::placeholder { color:var(--tm); }
-    .card.moto .field input:focus, .card.moto .field textarea:focus { border-color:rgba(77,173,136,.38); }
+    /* Transport leg blocks */
+    .leg-block{background:var(--bg-leg);border:1px solid var(--bd);border-radius:5px;padding:10px 10px 8px;margin-bottom:8px}
+    .leg-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+    .leg-num{font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:.1em;color:var(--tm)}
+    .leg-rm{background:none;border:none;color:var(--tm);font-size:12px;cursor:pointer;padding:1px 5px;border-radius:3px;line-height:1;transition:all .15s}
+    .leg-rm:hover{color:var(--text);background:rgba(255,255,255,.07)}
+    .ttype-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
+    .ttype-btn{font-family:'Inter',sans-serif;font-size:11px;background:var(--bg-edit);border:1px solid var(--bd);color:var(--ts);padding:4px 9px;border-radius:4px;cursor:pointer;transition:all .15s;white-space:nowrap}
+    .ttype-btn:hover{border-color:rgba(233,164,64,.4);color:var(--text)}
+    .ttype-btn.act{background:var(--gold-l);border-color:var(--gold);color:var(--gold)}
+    .card.moto .ttype-btn:hover{border-color:rgba(77,173,136,.4)}
+    .card.moto .ttype-btn.act{background:var(--green-l);border-color:var(--green);color:var(--green)}
+    .add-leg-btn{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;font-family:'Inter',sans-serif;font-size:11.5px;background:none;border:1px dashed rgba(255,255,255,.1);color:var(--tm);padding:7px;border-radius:5px;cursor:pointer;transition:all .15s;margin-bottom:11px}
+    .add-leg-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .sav-row{display:flex;align-items:center;gap:10px}
+    .sav-btn{font-family:'Inter',sans-serif;font-weight:600;font-size:11.5px;background:var(--gold);color:#060F1C;border:none;border-radius:4px;padding:6px 14px;cursor:pointer;transition:opacity .15s}
+    .sav-btn:hover{opacity:.85}
+    .card.moto .sav-btn{background:var(--green)}
+    .saved-msg{font-family:'Space Mono',monospace;font-size:9px;color:var(--gold);opacity:0;transition:opacity .2s}
+    .saved-msg.show{opacity:1}
 
     /* Tags */
-    .tags-box { display:flex; flex-wrap:wrap; align-items:center; gap:4px; min-height:34px; background:var(--bg-edit); border:1px solid var(--bd); border-radius:4px; padding:4px 8px; cursor:text; transition:border-color .15s; }
-    .tags-box:focus-within { border-color:rgba(233,164,64,.38); }
-    .card.moto .tags-box:focus-within { border-color:rgba(77,173,136,.38); }
-    .tag { display:inline-flex; align-items:center; gap:3px; background:var(--gold-l); border:1px solid rgba(233,164,64,.22); color:var(--gold); border-radius:3px; padding:1px 5px; font-size:11px; }
-    .card.moto .tag { background:var(--green-l); border-color:rgba(77,173,136,.22); color:var(--green); }
-    .tag button { background:none; border:none; color:inherit; cursor:pointer; font-size:10px; padding:0; opacity:.5; line-height:1; transition:opacity .1s; }
-    .tag button:hover { opacity:1; }
-    .tag-in { background:none; border:none; outline:none; color:var(--text); font-family:'Inter',sans-serif; font-size:12px; min-width:120px; flex:1; }
-    .tag-in::placeholder { color:var(--tm); }
+    .tags-box{display:flex;flex-wrap:wrap;align-items:center;gap:4px;min-height:34px;background:var(--bg-edit);border:1px solid var(--bd);border-radius:4px;padding:4px 8px;cursor:text;transition:border-color .15s}
+    .tags-box:focus-within{border-color:rgba(233,164,64,.38)}
+    .card.moto .tags-box:focus-within{border-color:rgba(77,173,136,.38)}
+    .tag{display:inline-flex;align-items:center;gap:3px;background:var(--gold-l);border:1px solid rgba(233,164,64,.22);color:var(--gold);border-radius:3px;padding:1px 5px;font-size:11px}
+    .card.moto .tag{background:var(--green-l);border-color:rgba(77,173,136,.22);color:var(--green)}
+    .tag button{background:none;border:none;color:inherit;cursor:pointer;font-size:10px;padding:0;opacity:.5;line-height:1;transition:opacity .1s}
+    .tag button:hover{opacity:1}
+    .tag-in{background:none;border:none;outline:none;color:var(--text);font-family:'Inter',sans-serif;font-size:12px;min-width:120px;flex:1}
+    .tag-in::placeholder{color:var(--tm)}
 
-    /* ── TRANSPORT SECTION ──────────────────────────── */
-    .t-sect { display:flex; align-items:center; gap:8px; margin:14px 0 12px; }
-    .t-sect::before, .t-sect::after { content:''; flex:1; height:1px; background:var(--bd); }
-    .t-sect span { font-family:'Space Mono',monospace; font-size:7.5px; letter-spacing:.12em; color:var(--tm); white-space:nowrap; }
+    /* ── CHECKLIST ────────────────────────────────── */
+    .cl-wrap{border-top:1px solid var(--bd)}
+    .cl-hdr{display:flex;align-items:center;gap:8px;padding:9px 14px;cursor:pointer;transition:background .15s}
+    .cl-hdr:hover{background:rgba(255,255,255,.02)}
+    .cl-hdr-title{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;color:var(--tm);text-transform:uppercase;flex-shrink:0}
+    .cl-hdr-stats{flex:1;font-family:'Space Mono',monospace;font-size:9px;color:var(--gold)}
+    .cl-toggle{background:none;border:none;color:var(--tm);font-size:9px;cursor:pointer;padding:0;flex-shrink:0}
+    .cl-body{display:none;padding:0 14px 12px}
+    .cl-body.open{display:block}
+    .cl-stats{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+    .cl-stat-pend{font-size:11px;color:var(--ts)}.cl-stat-pend strong{color:var(--gold)}.cl-stat-ok{font-size:11px;color:var(--green)}
+    .cl-show-all-btn{font-family:'Inter',sans-serif;font-size:10px;background:none;border:none;color:var(--tm);cursor:pointer;padding:0 0 8px;text-decoration:underline;text-underline-offset:2px}
+    .cl-show-all-btn:hover{color:var(--ts)}
+    .cl-cat-head{font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:.1em;color:var(--tm);text-transform:uppercase;margin:10px 0 5px}
+    .cl-item{display:flex;align-items:center;gap:7px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+    .cl-item.cl-tengo{opacity:.4}
+    .cl-icon{font-size:11px;flex-shrink:0}
+    .cl-name{flex:1;font-size:12px;color:var(--text)}
+    .cl-name.done{text-decoration:line-through;color:var(--ts)}
+    .cl-extra{display:flex;align-items:center;gap:5px;flex-shrink:0}
+    .cl-por{font-size:10px;color:var(--ts)}
+    .cl-bought{font-size:10px;color:var(--green);font-family:'Space Mono',monospace}
+    .cl-est{font-size:10px;color:var(--tm);font-family:'Space Mono',monospace}
+    .cl-buy-btn{font-family:'Inter',sans-serif;font-size:9.5px;background:none;border:1px solid rgba(77,173,136,.3);color:var(--green);padding:2px 6px;border-radius:3px;cursor:pointer;transition:all .15s;white-space:nowrap}
+    .cl-buy-btn:hover{background:rgba(77,173,136,.1)}
+    .cl-price-in{background:var(--bg-edit);border:1px solid rgba(77,173,136,.4);border-radius:3px;color:var(--text);font-family:'Space Mono',monospace;font-size:11px;padding:2px 6px;width:80px;outline:none}
+    .cl-ok-btn{background:var(--green);color:#060F1C;border:none;border-radius:3px;font-size:11px;padding:3px 7px;cursor:pointer;font-weight:700}
+    .cl-cancel-btn{background:none;border:1px solid var(--bd);color:var(--tm);border-radius:3px;font-size:11px;padding:3px 6px;cursor:pointer}
 
-    /* Leg block */
-    .leg-block { background:var(--bg-leg); border:1px solid var(--bd); border-radius:5px; padding:10px 10px 8px; margin-bottom:8px; }
-    .leg-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:9px; }
-    .leg-num { font-family:'Space Mono',monospace; font-size:7.5px; letter-spacing:.1em; color:var(--tm); }
-    .leg-rm { background:none; border:none; color:var(--tm); font-size:12px; cursor:pointer; padding:1px 5px; border-radius:3px; line-height:1; transition:all .15s; }
-    .leg-rm:hover { color:var(--text); background:rgba(255,255,255,.07); }
+    /* Color palette */
+    .col-palette{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+    .col-swatch{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2.5px solid transparent;transition:all .15s;padding:0;flex-shrink:0}
+    .col-swatch:hover{transform:scale(1.18)}
+    .col-swatch.act{border-color:rgba(255,255,255,.75);transform:scale(1.1)}
+    .conn-col-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;transition:background .2s}
 
-    /* Type buttons */
-    .ttype-row { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:9px; }
-    .ttype-btn { font-family:'Inter',sans-serif; font-size:11px; background:var(--bg-edit); border:1px solid var(--bd); color:var(--ts); padding:4px 9px; border-radius:4px; cursor:pointer; transition:all .15s; white-space:nowrap; }
-    .ttype-btn:hover { border-color:rgba(233,164,64,.4); color:var(--text); }
-    .ttype-btn.act { background:var(--gold-l); border-color:var(--gold); color:var(--gold); }
-    .card.moto .ttype-btn:hover { border-color:rgba(77,173,136,.4); }
-    .card.moto .ttype-btn.act { background:var(--green-l); border-color:var(--green); color:var(--green); }
-
-    /* From / To */
-    .t-route { display:grid; grid-template-columns:1fr 22px 1fr; align-items:end; gap:5px; margin-bottom:7px; }
-    .t-arrow { text-align:center; color:var(--tm); font-size:13px; padding-bottom:7px; }
-
-    /* Value + Bought */
-    .t-vb { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
-
-    /* Bought checkbox */
-    .t-chk-lbl { display:flex; align-items:center; gap:7px; font-size:11.5px; color:var(--ts); cursor:pointer; padding:5px 9px; background:var(--bg-edit); border:1px solid var(--bd); border-radius:4px; transition:all .15s; user-select:none; height:100%; }
-    .t-chk-lbl:hover { border-color:rgba(233,164,64,.3); color:var(--text); }
-    .t-chk-lbl input[type="checkbox"] { appearance:none; -webkit-appearance:none; width:14px; height:14px; border:1.5px solid var(--tm); border-radius:3px; cursor:pointer; flex-shrink:0; position:relative; background:transparent; transition:all .15s; }
-    .t-chk-lbl input[type="checkbox"]:checked { background:var(--gold); border-color:var(--gold); }
-    .t-chk-lbl input[type="checkbox"]:checked::after { content:'✓'; position:absolute; top:-2px; left:1px; font-size:10px; color:#060F1C; font-weight:700; }
-    .card.moto .t-chk-lbl input[type="checkbox"]:checked { background:var(--green); border-color:var(--green); }
-    .card.moto .t-chk-lbl:hover { border-color:rgba(77,173,136,.3); }
-
-    /* Add leg button */
-    .add-leg-btn { display:flex; align-items:center; justify-content:center; gap:5px; width:100%; font-family:'Inter',sans-serif; font-size:11.5px; background:none; border:1px dashed rgba(255,255,255,.1); color:var(--tm); padding:7px; border-radius:5px; cursor:pointer; transition:all .15s; margin-bottom:11px; }
-    .add-leg-btn:hover { border-color:var(--gold); color:var(--gold); }
-    .card.moto .add-leg-btn:hover { border-color:var(--green); color:var(--green); }
-
-    /* Save row */
-    .sav-row { display:flex; align-items:center; gap:10px; }
-    .sav-btn { font-family:'Inter',sans-serif; font-weight:600; font-size:11.5px; background:var(--gold); color:#060F1C; border:none; border-radius:4px; padding:6px 14px; cursor:pointer; transition:opacity .15s; }
-    .sav-btn:hover { opacity:.85; }
-    .card.moto .sav-btn { background:var(--green); }
-    .saved-msg { font-family:'Space Mono',monospace; font-size:9px; color:var(--gold); opacity:0; transition:opacity .2s; }
-    .saved-msg.show { opacity:1; }
-    .card.moto .saved-msg { color:var(--green); }
-
-    /* ── RESPONSIVE ─────────────────────────────────── */
-    @media (max-width:860px) {
-      .main { grid-template-columns:1fr; overflow:visible; }
-      .map-p { height:360px; border-right:none; border-bottom:1px solid var(--bd); }
-      body, html, .app { height:auto; }
-      .stops-p { overflow:visible; }
-      .t-route { grid-template-columns:1fr 16px 1fr; }
-      .t-vb { grid-template-columns:1fr; }
+    @media(max-width:860px){
+      .main{grid-template-columns:1fr;overflow:visible}
+      .map-p{height:360px;border-right:none;border-bottom:1px solid var(--bd)}
+      body,html,.app{height:auto}.stops-p{overflow:visible}
+      .t-row3{grid-template-columns:1fr 1fr}
     }
   </style>
 </head>
 <body>
 <div class="app">
-
   <header class="hdr">
-    <div class="hdr-l">
-      <span class="badge">VOCES QUE HACEN</span>
-      <h1>Tour de <em>Invierno</em> · 2026</h1>
-    </div>
-    <div class="hdr-r">
-      <div>27 JUN — 11 AGO · 46 DÍAS · 8 PARADAS</div>
-      <div class="hdr-ep" id="hdr-ep"></div>
-    </div>
+    <div class="hdr-l"><span class="badge">LA RUTA DEL GOLDEN</span><h1>Tour de <em>Invierno</em> · 2026</h1></div>
+    <div class="hdr-r"><div>27 JUN — 11 AGO · 46 DÍAS · 8 PARADAS</div><div class="hdr-ep" id="hdr-ep"></div></div>
   </header>
-
   <div class="main">
     <div class="map-p">
       <span class="map-lbl">Argentina</span>
       <svg class="arg-svg" viewBox="0 0 300 560" xmlns="http://www.w3.org/2000/svg">
-        <line x1="0"   y1="140" x2="300" y2="140" stroke="rgba(255,255,255,.016)" stroke-width="1"/>
-        <line x1="0"   y1="280" x2="300" y2="280" stroke="rgba(255,255,255,.016)" stroke-width="1"/>
-        <line x1="0"   y1="420" x2="300" y2="420" stroke="rgba(255,255,255,.016)" stroke-width="1"/>
-        <line x1="100" y1="0"   x2="100" y2="560" stroke="rgba(255,255,255,.016)" stroke-width="1"/>
-        <line x1="200" y1="0"   x2="200" y2="560" stroke="rgba(255,255,255,.016)" stroke-width="1"/>
-
-        <path class="arg-shape" d="
-          M 87,16 L 160,12 L 280,10
-          L 288,68 L 274,95
-          L 248,122 L 226,165
-          L 218,222 L 226,268
-          L 213,296 L 196,330 L 180,360
-          L 163,396 L 150,430 L 138,464
-          L 126,498 L 116,524 L 110,545
-          L 115,555 L 100,558 L 72,552
-          L 52,538 L 38,515 L 28,482
-          L 30,448 L 38,412 L 44,376
-          L 50,340 L 52,308 L 56,272
-          L 60,238 L 63,202 L 67,165
-          L 71,130 L 76,96 L 81,62 L 87,36 Z"/>
-
-        <ellipse class="pata-zone" cx="63" cy="385" rx="35" ry="63"/>
-
-        <polyline class="r-gold r1" points="187,170 187,192 218,220 141,167"/>
-        <polyline class="r-green"   points="141,167 58,324 141,167"/>
-        <polyline class="r-gold r3" points="141,167 154,183 86,169 218,220"/>
-
-        <g>
-          <circle class="home-dot" cx="187" cy="170" r="3.5"/>
-          <text class="home-lbl" x="172" y="162">🏠 Santa Fe</text>
+        <line x1="0" y1="140" x2="300" y2="140" stroke="rgba(255,255,255,.016)" stroke-width="1"/>
+        <line x1="0" y1="280" x2="300" y2="280" stroke="rgba(255,255,255,.016)" stroke-width="1"/>
+        <line x1="0" y1="420" x2="300" y2="420" stroke="rgba(255,255,255,.016)" stroke-width="1"/>
+        <line x1="100" y1="0" x2="100" y2="560" stroke="rgba(255,255,255,.016)" stroke-width="1"/>
+        <line x1="200" y1="0" x2="200" y2="560" stroke="rgba(255,255,255,.016)" stroke-width="1"/>
+        <path class="arg-shape" d="M 87,16 L 160,12 L 280,10 L 288,68 L 274,95 L 248,122 L 226,165 L 218,222 L 226,268 L 213,296 L 196,330 L 180,360 L 163,396 L 150,430 L 138,464 L 126,498 L 116,524 L 110,545 L 115,555 L 100,558 L 72,552 L 52,538 L 38,515 L 28,482 L 30,448 L 38,412 L 44,376 L 50,340 L 52,308 L 56,272 L 60,238 L 63,202 L 67,165 L 71,130 L 76,96 L 81,62 L 87,36 Z"/>
+        <ellipse class="pata-zone" cx="65" cy="360" rx="38" ry="80"/>
+        <g id="route-segs"></g>
+        <g><circle class="home-dot" cx="187" cy="170" r="3.5"/><text class="home-lbl" x="172" y="162">🏠 Santa Fe</text></g>
+        <g class="pin-g" data-pin="rosario" onclick="onPinClick('rosario')"><circle class="pin-ring ring-gold" cx="187" cy="192" r="5"/><circle class="pin-dot dot-gold" cx="187" cy="192" r="5"/><text class="pin-lbl" x="194" y="196">Rosario</text></g>
+        <g class="pin-g" data-pin="caba" onclick="onPinClick('caba')"><circle class="pin-ring ring-gold" cx="218" cy="220" r="5"/><circle class="pin-dot dot-gold" cx="218" cy="220" r="5"/><text class="pin-lbl" x="225" y="225">CABA</text></g>
+        <g class="pin-g" data-pin="cordoba" onclick="onPinClick('cordoba')"><circle class="pin-ring ring-gold" cx="141" cy="167" r="5"/><circle class="pin-dot dot-gold" cx="141" cy="167" r="5"/><text class="pin-lbl" x="148" y="171">Córdoba</text></g>
+        <!-- San Martín de los Andes -->
+        <g class="pin-g" data-pin="sur" onclick="onPinClick('sur')">
+          <circle class="pin-ring ring-green" cx="57" cy="297" r="4"/>
+          <circle class="pin-dot dot-green" cx="57" cy="297" r="4"/>
+          <text class="pin-lbl" x="65" y="294" style="fill:var(--green);font-size:7.5px">S. Martín</text>
         </g>
-
-        <g class="pin-g" data-pin="rosario"    onclick="onPinClick('rosario')">
-          <circle class="pin-ring ring-gold" cx="187" cy="192" r="5"/><circle class="pin-dot dot-gold" cx="187" cy="192" r="5"/>
-          <text class="pin-lbl" x="194" y="196">Rosario</text>
+        <!-- Villa La Angostura -->
+        <g class="pin-g" data-pin="sur" onclick="onPinClick('sur')">
+          <circle class="pin-ring ring-green" cx="55" cy="310" r="4"/>
+          <circle class="pin-dot dot-green" cx="55" cy="310" r="4"/>
+          <text class="pin-lbl" x="63" y="315" style="fill:var(--green);font-size:7.5px">V. Angostura</text>
         </g>
-        <g class="pin-g" data-pin="caba"       onclick="onPinClick('caba')">
-          <circle class="pin-ring ring-gold" cx="218" cy="220" r="5"/><circle class="pin-dot dot-gold" cx="218" cy="220" r="5"/>
-          <text class="pin-lbl" x="225" y="225">CABA</text>
+        <!-- Bariloche -->
+        <g class="pin-g" data-pin="sur" onclick="onPinClick('sur')">
+          <circle class="pin-ring ring-green" cx="61" cy="322" r="4"/>
+          <circle class="pin-dot dot-green" cx="61" cy="322" r="4"/>
+          <text class="pin-lbl" x="69" y="329" style="fill:var(--green);font-size:7.5px">Bariloche</text>
         </g>
-        <g class="pin-g" data-pin="cordoba"    onclick="onPinClick('cordoba')">
-          <circle class="pin-ring ring-gold" cx="141" cy="167" r="5"/><circle class="pin-dot dot-gold" cx="141" cy="167" r="5"/>
-          <text class="pin-lbl" x="148" y="171">Córdoba</text>
-        </g>
-        <g class="pin-g" data-pin="sur"        onclick="onPinClick('sur')">
-          <circle class="pin-ring ring-green" cx="58" cy="324" r="6"/><circle class="pin-dot dot-green" cx="58" cy="324" r="6"/>
-          <text class="pin-lbl" x="67" y="328" style="fill:var(--green)">Sur 🚐</text>
-        </g>
-        <g class="pin-g" data-pin="villamaria" onclick="onPinClick('villamaria')">
-          <circle class="pin-ring ring-gold" cx="154" cy="183" r="5"/><circle class="pin-dot dot-gold" cx="154" cy="183" r="5"/>
-          <text class="pin-lbl" x="161" y="179">V. María</text>
-        </g>
-        <g class="pin-g" data-pin="sanjuan"    onclick="onPinClick('sanjuan')">
-          <circle class="pin-ring ring-gold" cx="86" cy="169" r="5"/><circle class="pin-dot dot-gold" cx="86" cy="169" r="5"/>
-          <text class="pin-lbl" x="93" y="173">San Juan</text>
-        </g>
+        <g class="pin-g" data-pin="villamaria" onclick="onPinClick('villamaria')"><circle class="pin-ring ring-gold" cx="154" cy="183" r="5"/><circle class="pin-dot dot-gold" cx="154" cy="183" r="5"/><text class="pin-lbl" x="161" y="179">V. María</text></g>
+        <g class="pin-g" data-pin="sanjuan" onclick="onPinClick('sanjuan')"><circle class="pin-ring ring-gold" cx="86" cy="169" r="5"/><circle class="pin-dot dot-gold" cx="86" cy="169" r="5"/><text class="pin-lbl" x="93" y="173">San Juan</text></g>
       </svg>
-
       <div class="map-leg">
         <div class="leg-i"><div class="leg-dot" style="background:var(--gold)"></div>PARADA</div>
         <div class="leg-i"><div class="leg-dot" style="background:var(--green)"></div>MOTORHOME</div>
       </div>
     </div>
-
-    <div class="stops-p">
-      <div class="stops-hdr">
-        <span class="stops-lbl">Itinerario · 8 paradas</span>
-        <span class="ep-ct" id="ep-ct"></span>
-      </div>
+    <div class="stops-p" id="stops-p">
+      <div class="stops-hdr"><span class="stops-lbl">Itinerario · 8 paradas</span><span class="ep-ct" id="ep-ct"></span></div>
       <div id="cards"></div>
     </div>
   </div>
 </div>
-
 <script>
-// ─────────────────────────────────────────────────────
-// STOPS CONFIG
-// ─────────────────────────────────────────────────────
-const STOPS = [
-  { id:'rosario',    pin:'rosario',    n:'01', city:'Rosario',          prov:'Santa Fe',  dates:'27–29 junio',     s:'2026-06-27', e:'2026-06-29', type:'city'      },
-  { id:'caba1',      pin:'caba',       n:'02', city:'Buenos Aires',     prov:'CABA',      dates:'29 jun – 3 jul',  s:'2026-06-29', e:'2026-07-03', type:'city'      },
-  { id:'cordoba1',   pin:'cordoba',    n:'03', city:'Córdoba',          prov:'Córdoba',   dates:'4 julio',         s:'2026-07-04', e:'2026-07-04', type:'city'      },
-  { id:'sur',        pin:'sur',        n:'04', city:'Viaje por el Sur', prov:'Patagonia', dates:'4–19 julio',      s:'2026-07-04', e:'2026-07-19', type:'motorhome' },
-  { id:'cordoba2',   pin:'cordoba',    n:'05', city:'Córdoba',          prov:'Córdoba',   dates:'19–21 julio',     s:'2026-07-19', e:'2026-07-21', type:'city'      },
-  { id:'villamaria', pin:'villamaria', n:'06', city:'Villa María',      prov:'Córdoba',   dates:'22–25 julio',     s:'2026-07-22', e:'2026-07-25', type:'city'      },
-  { id:'sanjuan',    pin:'sanjuan',    n:'07', city:'San Juan',         prov:'San Juan',  dates:'25–31 julio',     s:'2026-07-25', e:'2026-07-31', type:'city'      },
-  { id:'caba2',      pin:'caba',       n:'08', city:'Buenos Aires',     prov:'CABA',      dates:'31 jul – 11 ago', s:'2026-07-31', e:'2026-08-11', type:'city'      },
+// ── CONFIG ───────────────────────────────────────────
+const STOPS=[
+  {id:'rosario',   pin:'rosario',   n:'01',city:'Rosario',         prov:'Santa Fe', dates:'27–29 junio',    s:'2026-06-27',e:'2026-06-29',type:'city'},
+  {id:'caba1',     pin:'caba',      n:'02',city:'Buenos Aires',    prov:'CABA',     dates:'29 jun – 3 jul', s:'2026-06-29',e:'2026-07-03',type:'city'},
+  {id:'cordoba1',  pin:'cordoba',   n:'03',city:'Córdoba',         prov:'Córdoba',  dates:'4 julio',        s:'2026-07-04',e:'2026-07-04',type:'city'},
+  {id:'sur',       pin:'sur',       n:'04',city:'Viaje por el Sur',prov:'Patagonia',dates:'4–19 julio',     s:'2026-07-04',e:'2026-07-19',type:'motorhome'},
+  {id:'cordoba2',  pin:'cordoba',   n:'05',city:'Córdoba',         prov:'Córdoba',  dates:'19–21 julio',    s:'2026-07-19',e:'2026-07-21',type:'city'},
+  {id:'villamaria',pin:'villamaria',n:'06',city:'Villa María',     prov:'Córdoba',  dates:'22–25 julio',    s:'2026-07-22',e:'2026-07-25',type:'city'},
+  {id:'sanjuan',   pin:'sanjuan',   n:'07',city:'San Juan',        prov:'San Juan', dates:'25–31 julio',    s:'2026-07-25',e:'2026-07-31',type:'city'},
+  {id:'caba2',     pin:'caba',      n:'08',city:'Buenos Aires',    prov:'CABA',     dates:'31 jul – 11 ago',s:'2026-07-31',e:'2026-08-11',type:'city'},
 ];
 
-const TTYPES = [
-  { key:'avion',     label:'Avión',     icon:'✈️' },
-  { key:'colectivo', label:'Colectivo', icon:'🚌' },
-  { key:'auto',      label:'Auto',      icon:'🚗' },
-  { key:'motorhome', label:'Motorhome', icon:'🚐' },
+const CONNECTORS=[
+  {id:'tr0',from:'Santa Fe',     to:'Rosario'},
+  {id:'tr1',from:'Rosario',      to:'Buenos Aires'},
+  {id:'tr2',from:'Buenos Aires', to:'Córdoba'},
+  {id:'tr3',from:'Córdoba',      to:'Sur / Patag.'},
+  {id:'tr4',from:'Patagonia',    to:'Córdoba'},
+  {id:'tr5',from:'Córdoba',      to:'Villa María'},
+  {id:'tr6',from:'Villa María',  to:'San Juan'},
+  {id:'tr7',from:'San Juan',     to:'Buenos Aires'},
 ];
 
-function newLeg() { return { ttype:'', tfrom:'', tto:'', tvalue:'', tbought:false }; }
+const TTYPES=[
+  {key:'avion',    label:'Avión',    icon:'✈️'},
+  {key:'colectivo',label:'Colectivo',icon:'🚌'},
+  {key:'auto',     label:'Auto',     icon:'🚗'},
+  {key:'motorhome',label:'Motorhome',icon:'🚐'},
+];
 
-// ─────────────────────────────────────────────────────
-// STORAGE
-// ─────────────────────────────────────────────────────
-const LS = 'vqh-tour-2026';
-function loadUD() { try { return JSON.parse(localStorage.getItem(LS)||'{}'); } catch { return {}; } }
-function saveUD() { try { localStorage.setItem(LS, JSON.stringify(ud)); } catch {} }
+const ROUTE_SEGMENTS=[
+  {id:'tr0',pts:'187,170 187,192',         dash:false},
+  {id:'tr1',pts:'187,192 218,220',          dash:false},
+  {id:'tr2',pts:'218,220 141,167',          dash:false},
+  {id:'tr3',pts:'141,167 57,297 55,310 61,322',dash:true},
+  {id:'tr4',pts:'61,322 141,167',           dash:true},
+  {id:'tr5',pts:'141,167 154,183',          dash:false},
+  {id:'tr6',pts:'154,183 86,169',           dash:false},
+  {id:'tr7',pts:'86,169 218,220',           dash:false},
+];
+const SEG_DEFAULTS={tr3:'#4DAD88',tr4:'#4DAD88'};
+const PALETTE=['#E9A440','#4DAD88','#5B9BD5','#A07FD4','#D4845B','#D45B77','#5BC4D4','#C8D45B'];
+function getSegColor(id){return cd[id]?.color||SEG_DEFAULTS[id]||'#E9A440'}
 
-let ud = loadUD();
-STOPS.forEach(s => {
-  if (!ud[s.id]) ud[s.id] = {};
-  const d = ud[s.id];
-  if (!d.iv)    d.iv    = [];
-  if (!d.host)  d.host  = '';
-  if (!d.notes) d.notes = '';
+const CHECKLIST_DEFAULTS=[
+  // 👕 Ropa
+  {id:'cl0', cat:'👕 Ropa',        name:'2 pantalones largos',             st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl1', cat:'👕 Ropa',        name:'Pantalón de trekking',            st:'prestado',por:'Pablo (viaje)',est:0,    ok:false,real:0},
+  {id:'cl2', cat:'👕 Ropa',        name:'4/5 remeras',                     st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl3', cat:'👕 Ropa',        name:'Buzo Qoast',                      st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl4', cat:'👕 Ropa',        name:'Buzo Polar rojo',                 st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl5', cat:'👕 Ropa',        name:'Campera tipo plumón',             st:'comprar', por:'',            est:95000, ok:false,real:0},
+  {id:'cl6', cat:'👕 Ropa',        name:'Gorro de lana',                   st:'comprar', por:'',            est:20000, ok:false,real:0},
+  {id:'cl7', cat:'👕 Ropa',        name:'Cuello polar / buff',             st:'comprar', por:'',            est:20000, ok:false,real:0},
+  {id:'cl8', cat:'👕 Ropa',        name:'Guantes',                         st:'comprar', por:'',            est:30000, ok:false,real:0},
+  {id:'cl9', cat:'👕 Ropa',        name:'Medias térmicas',                 st:'comprar', por:'',            est:20000, ok:false,real:0},
+  {id:'cl10',cat:'👕 Ropa',        name:'Ropa interior',                   st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl11',cat:'👕 Ropa',        name:'Pijama',                          st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl12',cat:'👕 Ropa',        name:'Pantuflas / crocs',               st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl13',cat:'👕 Ropa',        name:'3 pares medias normales',         st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  // 👟 Calzado
+  {id:'cl14',cat:'👟 Calzado',     name:'Zapatillas trekking impermeables',st:'comprar', por:'',            est:155000,ok:false,real:0},
+  {id:'cl15',cat:'👟 Calzado',     name:'Calzado de recambio (Asics)',     st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl16',cat:'👟 Calzado',     name:'Ojotas / sandalias',              st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  // 🛏️ Dormir
+  {id:'cl17',cat:'🛏️ Dormir',      name:'Sábanas',                         st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl18',cat:'🛏️ Dormir',      name:'Bolsa de dormir',                 st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  // 🧴 Higiene
+  {id:'cl19',cat:'🧴 Higiene',     name:'Toallas (verde + azul)',          st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl20',cat:'🧴 Higiene',     name:'Neceser personal',                st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl21',cat:'🧴 Higiene',     name:'Cepillo y pasta dental',          st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl22',cat:'🧴 Higiene',     name:'Protector labial',                st:'comprar', por:'',            est:3000,  ok:false,real:0},
+  {id:'cl23',cat:'🧴 Higiene',     name:'Medicación personal',             st:'comprar', por:'',            est:5000,  ok:false,real:0},
+  {id:'cl24',cat:'🧴 Higiene',     name:'Placa para dormir',               st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl25',cat:'🧴 Higiene',     name:'Jabonera con jabón',              st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl26',cat:'🧴 Higiene',     name:'Shampoo',                         st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  // ☕ Extras
+  {id:'cl27',cat:'☕ Extras',      name:'Mochila Wilson (excursiones)',    st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl28',cat:'☕ Extras',      name:'Termo y mate completo',           st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl29',cat:'☕ Extras',      name:'Linterna',                        st:'prestado',por:'Pancho',      est:0,     ok:false,real:0},
+  {id:'cl30',cat:'☕ Extras',      name:'Lentes de sol',                   st:'comprar', por:'',            est:5000,  ok:false,real:0},
+  {id:'cl31',cat:'☕ Extras',      name:'Celular',                         st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  // 🏕️ Campamento
+  {id:'cl32',cat:'🏕️ Campamento',  name:'Carpa',                           st:'prestado',por:'Pancho',      est:0,     ok:false,real:0},
+  {id:'cl33',cat:'🏕️ Campamento',  name:'Aislante / colchoneta',           st:'prestado',por:'Pancho',      est:0,     ok:false,real:0},
+  {id:'cl34',cat:'🏕️ Campamento',  name:'Mochila de trekking',             st:'comprar', por:'',            est:65000, ok:false,real:0},
+  {id:'cl35',cat:'🏕️ Campamento',  name:'Guantes impermeables',            st:'comprar', por:'',            est:20000, ok:false,real:0},
+  // 📱 Electrónica
+  {id:'cl36',cat:'📱 Electrónica', name:'Dron DJI Mini 5 Pro',            st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl37',cat:'📱 Electrónica', name:'MacBook M1 Air + cargador',      st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl38',cat:'📱 Electrónica', name:'Mics Boya V20 (x3)',             st:'tengo',   por:'',            est:0,     ok:false,real:0},
+  {id:'cl39',cat:'📱 Electrónica', name:'Trípode básico',                 st:'tengo',   por:'',            est:0,     ok:false,real:0},
+];
 
-  // Migrate old single-leg fields → legs array
-  if (!d.legs) {
-    const hadOld = d.ttype || d.tfrom || d.tto || d.tvalue || d.tbought;
-    d.legs = hadOld
-      ? [{ ttype:d.ttype||'', tfrom:d.tfrom||'', tto:d.tto||'', tvalue:d.tvalue||'', tbought:!!d.tbought }]
-      : [];
-    delete d.ttype; delete d.tfrom; delete d.tto; delete d.tvalue; delete d.tbought;
-    saveUD();
-  }
+// ── STORAGE ──────────────────────────────────────────
+const LS='vqh-tour-2026', CD_KEY='vqh-conn-2026', CL_KEY='vqh-cl-2026';
+function loadUD(){try{return JSON.parse(localStorage.getItem(LS)||'{}')}catch{return{}}}
+function saveUD(){try{localStorage.setItem(LS,JSON.stringify(ud))}catch{}}
+function loadCD(){try{return JSON.parse(localStorage.getItem(CD_KEY)||'{}')}catch{return{}}}
+function saveCD(){try{localStorage.setItem(CD_KEY,JSON.stringify(cd))}catch{}}
+
+let ud=loadUD();
+STOPS.forEach(s=>{
+  if(!ud[s.id])ud[s.id]={};
+  const d=ud[s.id];
+  if(!d.iv)d.iv=[];if(!d.host)d.host='';if(!d.notes)d.notes='';
+  // Remove old transport fields (now in connectors)
+  delete d.legs;delete d.ttype;delete d.tfrom;delete d.tto;delete d.tvalue;delete d.tbought;
 });
 
-// ─────────────────────────────────────────────────────
-// HELPERS
-// ─────────────────────────────────────────────────────
-const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-const el  = id => document.getElementById(id);
+let cd=loadCD();
+CONNECTORS.forEach(c=>{if(!cd[c.id])cd[c.id]={legs:[]}});
 
-function getStatus(stop) {
-  const t = new Date().toISOString().slice(0,10);
-  return t > stop.e ? 'past' : t >= stop.s ? 'current' : 'upcoming';
+// Checklist
+function initCL(){
+  try{
+    const s=JSON.parse(localStorage.getItem(CL_KEY)||'null');
+    clState=s&&s.items&&s.items.length?s:{items:CHECKLIST_DEFAULTS.map(i=>({...i}))};
+  }catch{clState={items:CHECKLIST_DEFAULTS.map(i=>({...i}))}}
 }
+function saveCL(){try{localStorage.setItem(CL_KEY,JSON.stringify(clState))}catch{}}
 
-// Read all live form values into ud before any re-render
-function snapshot(id) {
-  const d = ud[id];
-  const fv = key => el(`${key}-${id}`)?.value.trim();
-  if (el(`host-${id}`))  d.host  = fv('host');
-  if (el(`notes-${id}`)) d.notes = fv('notes');
-  d.legs.forEach((leg, i) => {
-    if (el(`tfrom-${id}-${i}`))   leg.tfrom   = el(`tfrom-${id}-${i}`).value.trim();
-    if (el(`tto-${id}-${i}`))     leg.tto     = el(`tto-${id}-${i}`).value.trim();
-    if (el(`tvalue-${id}-${i}`))  leg.tvalue  = el(`tvalue-${id}-${i}`).value.trim();
-    if (el(`tbought-${id}-${i}`)) leg.tbought = el(`tbought-${id}-${i}`).checked;
-  });
+// ── STATE ────────────────────────────────────────────
+let clState=null; initCL();
+let activeId=null,openEdit=null,openConn=null,clOpen=false,clShowAll=false,clEditing=null;
+
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const el=id=>document.getElementById(id);
+function getStatus(stop){const t=new Date().toISOString().slice(0,10);return t>stop.e?'past':t>=stop.s?'current':'upcoming'}
+function newLeg(){return{ttype:'',tfrom:'',tto:'',tvalue:'',fpago:'',pagado:false}}
+
+// ── SNAPSHOT ─────────────────────────────────────────
+function snapshot(id){
+  const d=ud[id];
+  if(el(`host-${id}`)) d.host=el(`host-${id}`).value.trim();
+  if(el(`notes-${id}`)) d.notes=el(`notes-${id}`).value.trim();
   saveUD();
 }
 
-// ─────────────────────────────────────────────────────
-// STATE
-// ─────────────────────────────────────────────────────
-let activeId = null;
-let openEdit = null;
-
-function updateStats() {
-  let n = 0;
-  STOPS.forEach(s => { if (ud[s.id]?.iv?.length) n++; });
-  const ct  = el('ep-ct');
-  const hep = el('hdr-ep');
-  if (ct)  ct.textContent  = n ? `${n} ENTREVISTA${n>1?'S':''} AGENDADA${n>1?'S':''}` : '';
-  if (hep) hep.textContent = n ? `${n} EP${n>1?'S':''} PLANEADOS` : '';
+function snapshotConn(cid){
+  cd[cid].legs.forEach((leg,i)=>{
+    if(el(`ctfrom-${cid}-${i}`))  leg.tfrom  =el(`ctfrom-${cid}-${i}`).value.trim();
+    if(el(`ctto-${cid}-${i}`))    leg.tto    =el(`ctto-${cid}-${i}`).value.trim();
+    if(el(`ctvalue-${cid}-${i}`)) leg.tvalue =el(`ctvalue-${cid}-${i}`).value.trim();
+    if(el(`ctfpago-${cid}-${i}`)) leg.fpago  =el(`ctfpago-${cid}-${i}`).value;
+    if(el(`ctpag-${cid}-${i}`))   leg.pagado =el(`ctpag-${cid}-${i}`).checked;
+  });
+  saveCD();
 }
 
-// ─────────────────────────────────────────────────────
-// RENDER
-// ─────────────────────────────────────────────────────
-function renderCards() {
-  const container = el('cards');
-  container.innerHTML = '';
+// ── STATS ────────────────────────────────────────────
+function updateStats(){
+  let n=0; STOPS.forEach(s=>{if(ud[s.id]?.iv?.length)n++});
+  const ct=el('ep-ct'),hep=el('hdr-ep');
+  if(ct) ct.textContent=n?`${n} ENTREVISTA${n>1?'S':''} AGENDADA${n>1?'S':''}`:'' ;
+  if(hep) hep.textContent=n?`${n} EP${n>1?'S':''} PLANEADOS`:'';
+}
 
-  STOPS.forEach(stop => {
-    const d    = ud[stop.id];
-    const moto = stop.type === 'motorhome';
-    const sel  = activeId === stop.id;
-    const open = openEdit === stop.id;
-    const st   = getStatus(stop);
-
-    const stCls = {past:'s-past',current:'s-cur',upcoming:'s-up'}[st];
-    const stLbl = {past:'PASADO',current:'EN CURSO',upcoming:'PRÓXIMO'}[st];
-
-    // ── Summary pills ──────────────────────────────
-    let pills = '';
-    if (d.host) pills += `<span class="pill p-host">🏠 ${esc(d.host)}</span>`;
-    d.iv.forEach(iv => pills += `<span class="pill ${moto?'p-moto':'p-iv'}">🎙 ${esc(iv)}</span>`);
-
-    // One pill per transport leg
-    d.legs.forEach(leg => {
-      if (!leg.ttype && !leg.tfrom && !leg.tto && !leg.tvalue) return;
-      const ico = TTYPES.find(t => t.key === leg.ttype)?.icon || '🎫';
-      const parts = [ico];
-      if (leg.tfrom || leg.tto) parts.push(`${leg.tfrom||'?'} → ${leg.tto||'?'}`);
-      if (leg.tvalue) parts.push(`$${leg.tvalue}`);
-      parts.push(leg.tbought ? '✓' : 'sin comprar');
-      pills += `<span class="pill ${leg.tbought?'p-trans-ok':'p-trans-pend'}">${esc(parts.join(' · '))}</span>`;
-    });
-
-    if (d.notes && !d.iv.length && !d.host && !d.legs.length) {
-      const snip = d.notes.length > 32 ? d.notes.slice(0,32)+'…' : d.notes;
-      pills += `<span class="pill p-notes">📝 ${esc(snip)}</span>`;
-    }
-
-    // ── Tags ───────────────────────────────────────
-    const tags = d.iv.map((iv,i) =>
-      `<span class="tag">${esc(iv)}<button onclick="rmIv('${stop.id}',${i})" title="Quitar">×</button></span>`
-    ).join('');
-
-    // ── Transport legs ─────────────────────────────
-    const legsHtml = d.legs.map((leg, i) => {
-      const typeBtns = TTYPES.map(t =>
-        `<button class="ttype-btn${leg.ttype===t.key?' act':''}" onclick="setLegType('${stop.id}',${i},'${t.key}')">${t.icon} ${t.label}</button>`
-      ).join('');
-
-      return `
-        <div class="leg-block">
-          <div class="leg-hdr">
-            <span class="leg-num">TRAMO ${i+1}</span>
-            <button class="leg-rm" onclick="removeLeg('${stop.id}',${i})" title="Quitar tramo">✕</button>
-          </div>
-          <div class="ttype-row">${typeBtns}</div>
-          <div class="t-route">
-            <div class="field" style="margin:0">
-              <label>Desde</label>
-              <input type="text" id="tfrom-${stop.id}-${i}" value="${esc(leg.tfrom)}" placeholder="Ciudad origen"/>
-            </div>
-            <span class="t-arrow">→</span>
-            <div class="field" style="margin:0">
-              <label>Hasta</label>
-              <input type="text" id="tto-${stop.id}-${i}" value="${esc(leg.tto)}" placeholder="Ciudad destino"/>
-            </div>
-          </div>
-          <div class="t-vb">
-            <div class="field" style="margin:0">
-              <label>Valor</label>
-              <input type="text" id="tvalue-${stop.id}-${i}" value="${esc(leg.tvalue)}" placeholder="$ monto"/>
-            </div>
-            <div class="field" style="margin:0">
-              <label>Estado</label>
-              <label class="t-chk-lbl">
-                <input type="checkbox" id="tbought-${stop.id}-${i}" ${leg.tbought?'checked':''}
-                  onchange="onBoughtChange('${stop.id}',${i})"/>
-                <span id="tchktxt-${stop.id}-${i}">${leg.tbought?'Ya comprado ✓':'Sin comprar aún'}</span>
-              </label>
-            </div>
-          </div>
-        </div>`;
-    }).join('');
-
-    const hostLbl = moto ? '¿Cómo viajan / dónde duermen?' : '¿Con quién / dónde me quedo?';
-    const hostPh  = moto ? 'Motorhome propio, camping, hostel…' : 'Casa de Juan, Airbnb, hotel…';
-
-    const div = document.createElement('div');
-    div.id        = `card-${stop.id}`;
-    div.className = `card${moto?' moto':''}${sel?' sel':''}`;
-    div.innerHTML = `
-      <div class="card-h" onclick="cardClick('${stop.id}')">
-        <span class="c-n">${stop.n}</span>
-        <div class="c-b">
-          <div class="c-city">${stop.city}</div>
-          <div class="c-prov">${stop.prov}</div>
-          <div class="c-dates">${stop.dates}</div>
-          ${pills?`<div class="c-pills">${pills}</div>`:''}
+// ── BUILD LEG HTML (shared between cards & connectors) ──
+function buildLegs(legs,prefix,moto){
+  return legs.map((leg,i)=>{
+    const tBtns=TTYPES.map(t=>`<button class="ttype-btn${leg.ttype===t.key?' act':''}" onclick="${prefix}LegType('${prefix==='c'?''+openConn:''}',${i},'${t.key}')">${t.icon} ${t.label}</button>`).join('');
+    return `
+      <div class="leg-block">
+        <div class="leg-hdr"><span class="leg-num">TRAMO ${i+1}</span>
+          <button class="leg-rm" onclick="${prefix}RemLeg(${prefix==='c'?`'${openConn}',`:''}${i})">✕</button></div>
+        <div class="ttype-row">${tBtns}</div>
+        <div class="t-route">
+          <div class="field" style="margin:0"><label>Desde</label><input type="text" id="${prefix}tfrom-${prefix==='c'?openConn:'STOP'}-${i}" value="${esc(leg.tfrom)}" placeholder="Ciudad origen"/></div>
+          <span class="t-arrow">→</span>
+          <div class="field" style="margin:0"><label>Hasta</label><input type="text" id="${prefix}tto-${prefix==='c'?openConn:'STOP'}-${i}" value="${esc(leg.tto)}" placeholder="Ciudad destino"/></div>
         </div>
-        <div class="c-meta">
-          <span class="status ${stCls}">${stLbl}</span>
-          <button class="edt-btn" id="ebtn-${stop.id}"
-            onclick="event.stopPropagation();toggleEdit('${stop.id}')">
-            ${open?'Cerrar':'Editar'}
-          </button>
-        </div>
-      </div>
-
-      <div class="c-edit${open?' open':''}" id="cedit-${stop.id}">
-        <div class="edit-in">
-
-          <div class="field">
-            <label>¿A quién entrevisto?</label>
-            <div class="tags-box" onclick="el('ti-${stop.id}').focus()">
-              ${tags}
-              <input class="tag-in" id="ti-${stop.id}"
-                placeholder="Nombre + Enter para agregar"
-                onkeydown="tagKey(event,'${stop.id}')"/>
-            </div>
+        <div class="t-row3">
+          <div class="field" style="margin:0"><label>Valor</label><input type="text" id="${prefix}tvalue-${prefix==='c'?openConn:'STOP'}-${i}" value="${esc(leg.tvalue)}" placeholder="$ monto"/></div>
+          <div class="field" style="margin:0"><label>Forma de pago</label>
+            <select id="${prefix}fpago-${prefix==='c'?openConn:'STOP'}-${i}">
+              <option value="">Sin especificar</option>
+              <option value="efectivo"${leg.fpago==='efectivo'?' selected':''}>💵 Efectivo</option>
+              <option value="tarjeta"${leg.fpago==='tarjeta'?' selected':''}>💳 Tarjeta</option>
+              <option value="transf"${leg.fpago==='transf'?' selected':''}>📱 Transferencia</option>
+              <option value="mp"${leg.fpago==='mp'?' selected':''}>🟦 Mercado Pago</option>
+            </select>
           </div>
-
-          <div class="field">
-            <label>${hostLbl}</label>
-            <input type="text" id="host-${stop.id}" value="${esc(d.host)}" placeholder="${hostPh}"/>
-          </div>
-
-          <div class="field">
-            <label>Notas</label>
-            <textarea id="notes-${stop.id}" rows="2" placeholder="Lugares, contactos, ideas…">${esc(d.notes)}</textarea>
-          </div>
-
-          <div class="t-sect"><span>TRANSPORTE · IDA</span></div>
-
-          ${legsHtml}
-
-          <button class="add-leg-btn" onclick="addLeg('${stop.id}')">+ Agregar tramo</button>
-
-          <div class="sav-row">
-            <button class="sav-btn" onclick="saveStop('${stop.id}')">Guardar</button>
-            <span class="saved-msg" id="smsg-${stop.id}">¡Guardado!</span>
+          <div class="field" style="margin:0"><label>Estado</label>
+            <label class="t-chk-lbl">
+              <input type="checkbox" id="${prefix}pag-${prefix==='c'?openConn:'STOP'}-${i}" ${leg.pagado?'checked':''}
+                onchange="onPagChange('${prefix}','${prefix==='c'?openConn:''}',${i})"/>
+              <span id="${prefix}pagtxt-${prefix==='c'?openConn:'STOP'}-${i}">${leg.pagado?'Pagado ✓':'Sin pagar'}</span>
+            </label>
           </div>
         </div>
       </div>`;
-    container.appendChild(div);
-  });
+  }).join('');
+}
 
+// ── RENDER CONNECTOR ──────────────────────────────────
+function renderConnector(conn){
+  const d=cd[conn.id];
+  const isOpen=openConn===conn.id;
+  const valid=d.legs.filter(l=>l.ttype||l.tfrom||l.tto||l.tvalue);
+
+  let sum='';
+  if(valid.length){
+    const fpLabels={efectivo:'efectivo',tarjeta:'tarjeta',transf:'transf.',mp:'MP'};
+    sum=valid.map(l=>{
+      const ico=TTYPES.find(t=>t.key===l.ttype)?.icon||'🎫';
+      const parts=[ico];
+      if(l.tfrom||l.tto) parts.push(`${l.tfrom||'?'}→${l.tto||'?'}`);
+      if(l.tvalue) parts.push(`$${l.tvalue}`);
+      if(l.fpago) parts.push(fpLabels[l.fpago]||'');
+      parts.push(l.pagado?'✓':'pendiente');
+      return parts.filter(Boolean).join(' · ');
+    }).join(' + ');
+  }
+
+  // Use unique IDs with the conn id embedded in the leg HTML
+  const legsHtml=d.legs.map((leg,i)=>{
+    const tBtns=TTYPES.map(t=>`<button class="ttype-btn${leg.ttype===t.key?' act':''}" onclick="setConnLegType('${conn.id}',${i},'${t.key}')">${t.icon} ${t.label}</button>`).join('');
+    return `
+      <div class="leg-block">
+        <div class="leg-hdr"><span class="leg-num">TRAMO ${i+1}</span>
+          <button class="leg-rm" onclick="rmConnLeg('${conn.id}',${i})">✕</button></div>
+        <div class="ttype-row">${tBtns}</div>
+        <div class="t-route">
+          <div class="field" style="margin:0"><label>Desde</label><input type="text" id="ctfrom-${conn.id}-${i}" value="${esc(leg.tfrom)}" placeholder="Ciudad origen"/></div>
+          <span class="t-arrow">→</span>
+          <div class="field" style="margin:0"><label>Hasta</label><input type="text" id="ctto-${conn.id}-${i}" value="${esc(leg.tto)}" placeholder="Ciudad destino"/></div>
+        </div>
+        <div class="t-row3">
+          <div class="field" style="margin:0"><label>Valor</label><input type="text" id="ctvalue-${conn.id}-${i}" value="${esc(leg.tvalue)}" placeholder="$ monto"/></div>
+          <div class="field" style="margin:0"><label>Forma de pago</label>
+            <select id="ctfpago-${conn.id}-${i}">
+              <option value="">Sin especificar</option>
+              <option value="efectivo"${leg.fpago==='efectivo'?' selected':''}>💵 Efectivo</option>
+              <option value="tarjeta"${leg.fpago==='tarjeta'?' selected':''}>💳 Tarjeta</option>
+              <option value="transf"${leg.fpago==='transf'?' selected':''}>📱 Transferencia</option>
+              <option value="mp"${leg.fpago==='mp'?' selected':''}>🟦 Mercado Pago</option>
+            </select>
+          </div>
+          <div class="field" style="margin:0"><label>Estado</label>
+            <label class="t-chk-lbl">
+              <input type="checkbox" id="ctpag-${conn.id}-${i}" ${leg.pagado?'checked':''}
+                onchange="onConnPagChg('${conn.id}',${i})"/>
+              <span id="ctpagtxt-${conn.id}-${i}">${leg.pagado?'Pagado ✓':'Sin pagar'}</span>
+            </label>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const div=document.createElement('div');
+  div.id=`conn-${conn.id}`;
+  div.className='conn-wrap';
+  div.innerHTML=`
+    <div class="conn-bar${isOpen?' open':''}${valid.length?' has-data':''}" onclick="toggleConn('${conn.id}')">
+      <span class="conn-down">↓</span>
+      <span class="conn-col-dot" style="background:${getSegColor(conn.id)}"></span>
+      <span class="conn-route">${esc(conn.from)} → ${esc(conn.to)}</span>
+      <span class="conn-sum">${sum||'<span style="opacity:.35">sin datos</span>'}</span>
+      <button class="conn-btn" onclick="event.stopPropagation();toggleConn('${conn.id}')">
+        ${isOpen?'Cerrar':valid.length?'Editar':'+ Traslado'}
+      </button>
+    </div>
+    <div class="conn-form${isOpen?' open':`${''}`}">
+      ${legsHtml}
+      <button class="add-leg-btn" onclick="addConnLeg('${conn.id}')">+ Agregar tramo</button>
+      <div class="field" style="margin-bottom:11px">
+        <label>Color en el mapa</label>
+        <div class="col-palette">
+          ${PALETTE.map(c=>`<button class="col-swatch${getSegColor(conn.id)===c?' act':''}" style="background:${c}" onclick="setConnColor('${conn.id}','${c}')"></button>`).join('')}
+        </div>
+      </div>
+      <div class="sav-row">
+        <button class="sav-btn" onclick="saveConn('${conn.id}')">Guardar</button>
+        <span class="saved-msg" id="cmsg-${conn.id}">¡Guardado!</span>
+      </div>
+    </div>`;
+  return div;
+}
+
+// ── RENDER CARD ──────────────────────────────────────
+function renderCard(stop){
+  const d=ud[stop.id];
+  const moto=stop.type==='motorhome';
+  const sel=activeId===stop.id;
+  const open=openEdit===stop.id;
+  const st=getStatus(stop);
+  const stCls={past:'s-past',current:'s-cur',upcoming:'s-up'}[st];
+  const stLbl={past:'PASADO',current:'EN CURSO',upcoming:'PRÓXIMO'}[st];
+
+  let pills='';
+  if(d.host) pills+=`<span class="pill p-host">🏠 ${esc(d.host)}</span>`;
+  d.iv.forEach(iv=>pills+=`<span class="pill ${moto?'p-moto':'p-iv'}">🎙 ${esc(iv)}</span>`);
+  if(d.notes&&!d.iv.length&&!d.host){const sn=d.notes.length>32?d.notes.slice(0,32)+'…':d.notes;pills+=`<span class="pill p-notes">📝 ${esc(sn)}</span>`}
+
+  const tags=d.iv.map((iv,i)=>`<span class="tag">${esc(iv)}<button onclick="rmIv('${stop.id}',${i})">×</button></span>`).join('');
+  const hostLbl=moto?'¿Cómo viajan / dónde duermen?':'¿Con quién / dónde me quedo?';
+  const hostPh=moto?'Motorhome propio, camping, hostel…':'Casa de Juan, Airbnb, hotel…';
+
+  // Checklist section (only Sur)
+  let clSect='';
+  if(stop.id==='sur'){
+    const pend=clState.items.filter(i=>i.st==='comprar'&&!i.ok);
+    const tot=pend.reduce((a,b)=>a+(b.est||0),0);
+    clSect=`
+      <div class="cl-wrap">
+        <div class="cl-hdr" onclick="toggleCL()">
+          <span class="cl-hdr-title">🎒 EQUIPAJE PATAGONIA</span>
+          <span class="cl-hdr-stats" id="cl-summary">${pend.length} por comprar · $${tot.toLocaleString('es-AR')}</span>
+          <button class="cl-toggle" id="cl-toggle-btn">${clOpen?'▲':'▼'}</button>
+        </div>
+        <div class="cl-body${clOpen?' open':''}" id="cl-body"></div>
+      </div>`;
+  }
+
+  const div=document.createElement('div');
+  div.id=`card-${stop.id}`;
+  div.className=`card${moto?' moto':''}${sel?' sel':''}`;
+  div.innerHTML=`
+    <div class="card-h" onclick="cardClick('${stop.id}')">
+      <span class="c-n">${stop.n}</span>
+      <div class="c-b">
+        <div class="c-city">${stop.city}</div>
+        <div class="c-prov">${stop.prov}</div>
+        <div class="c-dates">${stop.dates}</div>
+        ${pills?`<div class="c-pills">${pills}</div>`:''}
+      </div>
+      <div class="c-meta">
+        <span class="status ${stCls}">${stLbl}</span>
+        <button class="edt-btn" id="ebtn-${stop.id}" onclick="event.stopPropagation();toggleEdit('${stop.id}')">${open?'Cerrar':'Editar'}</button>
+      </div>
+    </div>
+    ${clSect}
+    <div class="c-edit${open?' open':''}" id="cedit-${stop.id}">
+      <div class="edit-in">
+        <div class="field">
+          <label>¿A quién entrevisto?</label>
+          <div class="tags-box" onclick="el('ti-${stop.id}').focus()">
+            ${tags}<input class="tag-in" id="ti-${stop.id}" placeholder="Nombre + Enter" onkeydown="tagKey(event,'${stop.id}')"/>
+          </div>
+        </div>
+        <div class="field"><label>${hostLbl}</label><input type="text" id="host-${stop.id}" value="${esc(d.host)}" placeholder="${hostPh}"/></div>
+        <div class="field"><label>Notas</label><textarea id="notes-${stop.id}" rows="2" placeholder="Lugares, contactos, ideas…">${esc(d.notes)}</textarea></div>
+        <div class="sav-row"><button class="sav-btn" onclick="saveStop('${stop.id}')">Guardar</button><span class="saved-msg" id="smsg-${stop.id}">¡Guardado!</span></div>
+      </div>
+    </div>`;
+  return div;
+}
+
+// ── RENDER ALL ───────────────────────────────────────
+function renderRouteSegments(){
+  const g=el('route-segs');if(!g)return;
+  g.innerHTML='';
+  ROUTE_SEGMENTS.forEach(seg=>{
+    const color=getSegColor(seg.id);
+    const pl=document.createElementNS('http://www.w3.org/2000/svg','polyline');
+    pl.setAttribute('points',seg.pts);
+    pl.setAttribute('fill','none');
+    pl.setAttribute('stroke',color);
+    pl.setAttribute('stroke-width','1.8');
+    pl.setAttribute('stroke-linecap','round');
+    pl.setAttribute('stroke-linejoin','round');
+    pl.setAttribute('opacity','0.85');
+    if(seg.dash) pl.setAttribute('stroke-dasharray','7 5');
+    g.appendChild(pl);
+  });
+}
+
+function renderAll(){
+  const sp=el('stops-p');
+  const scroll=sp?sp.scrollTop:0;
+  el('cards').innerHTML='';
+  STOPS.forEach((stop,idx)=>{
+    el('cards').appendChild(renderConnector(CONNECTORS[idx]));
+    el('cards').appendChild(renderCard(stop));
+  });
+  renderRouteSegments();
+  if(clOpen) renderChecklist();
+  if(sp) sp.scrollTop=scroll;
   updateStats();
 }
 
-// ─────────────────────────────────────────────────────
-// CARD / MAP INTERACTIONS
-// ─────────────────────────────────────────────────────
-function cardClick(id) {
-  activeId = (activeId===id) ? null : id;
-  renderCards();
-  if (activeId) {
-    setTimeout(() => el(`card-${activeId}`)?.scrollIntoView({behavior:'smooth',block:'nearest'}), 40);
-    highlightPin(STOPS.find(s=>s.id===activeId)?.pin||null);
-  } else clearPins();
+// ── RENDER CHECKLIST ─────────────────────────────────
+function renderChecklist(){
+  const body=el('cl-body');
+  if(!body)return;
+  const items=clState.items;
+  const pend=items.filter(i=>i.st==='comprar'&&!i.ok);
+  const totPend=pend.reduce((a,b)=>a+(b.est||0),0);
+  const totReal=items.filter(i=>i.ok).reduce((a,b)=>a+(b.real||0),0);
+
+  const catMap={};
+  items.forEach(item=>{if(!catMap[item.cat])catMap[item.cat]=[];catMap[item.cat].push(item)});
+
+  let html=`
+    <div class="cl-stats">
+      <span class="cl-stat-pend">${pend.length} por comprar · <strong>$${totPend.toLocaleString('es-AR')}</strong></span>
+      ${totReal>0?`<span class="cl-stat-ok">Gastado: $${totReal.toLocaleString('es-AR')}</span>`:''}
+    </div>
+    <button class="cl-show-all-btn" onclick="clShowAll=!clShowAll;renderChecklist()">${clShowAll?'Ocultar lo que ya tengo':'Mostrar todo'}</button>`;
+
+  Object.entries(catMap).forEach(([cat,catItems])=>{
+    const vis=catItems.filter(i=>{
+      if(i.st==='nollevo')return false;
+      if(i.st==='tengo'&&!clShowAll)return false;
+      return true;
+    });
+    if(!vis.length)return;
+    html+=`<div class="cl-cat-head">${cat}</div>`;
+    vis.forEach(item=>{
+      const icon={tengo:'✅',comprar:item.ok?'✅':'🛒',prestado:'🤝'}[item.st]||'';
+      const isTengo=item.st==='tengo'||(item.st==='comprar'&&item.ok);
+      let extra='';
+      if(item.st==='prestado') extra=`<span class="cl-por">${esc(item.por)}</span>`;
+      else if(item.st==='comprar'){
+        if(item.ok) extra=`<span class="cl-bought">real $${(item.real||0).toLocaleString('es-AR')}</span>`;
+        else if(clEditing===item.id) extra=`<input class="cl-price-in" id="cl-real-${item.id}" type="text" placeholder="$ real" value="${item.real||''}"/><button class="cl-ok-btn" onclick="confirmBought('${item.id}')">✓</button><button class="cl-cancel-btn" onclick="clEditing=null;renderChecklist()">✕</button>`;
+        else extra=`<span class="cl-est">est. $${(item.est||0).toLocaleString('es-AR')}</span><button class="cl-buy-btn" onclick="startBought('${item.id}')">Comprado</button>`;
+      }
+      html+=`<div class="cl-item${item.st==='tengo'?' cl-tengo':''}">
+        <span class="cl-icon">${icon}</span>
+        <span class="cl-name${item.ok?' done':''}">${esc(item.name)}</span>
+        <span class="cl-extra">${extra}</span>
+      </div>`;
+    });
+  });
+
+  body.innerHTML=html;
+  const sum=el('cl-summary');
+  if(sum) sum.textContent=`${pend.length} por comprar · $${totPend.toLocaleString('es-AR')}`;
+  setTimeout(()=>{if(clEditing) el(`cl-real-${clEditing}`)?.focus()},40);
 }
 
-function onPinClick(pin) {
-  const matches = STOPS.filter(s=>s.pin===pin);
-  if (!matches.length) return;
-  const pick = matches.find(s=>getStatus(s)==='current') || matches.find(s=>getStatus(s)==='upcoming') || matches[0];
-  activeId = pick.id;
-  renderCards();
-  setTimeout(() => el(`card-${activeId}`)?.scrollIntoView({behavior:'smooth',block:'nearest'}), 40);
+// ── CARD INTERACTIONS ────────────────────────────────
+function cardClick(id){
+  if(openConn){snapshotConn(openConn);openConn=null}
+  activeId=(activeId===id)?null:id;
+  renderAll();
+  if(activeId){
+    setTimeout(()=>el(`card-${activeId}`)?.scrollIntoView({behavior:'smooth',block:'nearest'}),40);
+    highlightPin(STOPS.find(s=>s.id===activeId)?.pin||null);
+  }else clearPins();
+}
+
+function onPinClick(pin){
+  const m=STOPS.filter(s=>s.pin===pin);
+  if(!m.length)return;
+  const pick=m.find(s=>getStatus(s)==='current')||m.find(s=>getStatus(s)==='upcoming')||m[0];
+  activeId=pick.id;renderAll();
+  setTimeout(()=>el(`card-${activeId}`)?.scrollIntoView({behavior:'smooth',block:'nearest'}),40);
   highlightPin(pin);
 }
 
-function highlightPin(pin) {
+function highlightPin(pin){
   document.querySelectorAll('.pin-ring').forEach(e=>e.classList.remove('on'));
-  if (pin) document.querySelector(`.pin-g[data-pin="${pin}"] .pin-ring`)?.classList.add('on');
+  if(pin) document.querySelectorAll(`.pin-g[data-pin="${pin}"] .pin-ring`).forEach(e=>e.classList.add('on'));
 }
-function clearPins() { document.querySelectorAll('.pin-ring').forEach(e=>e.classList.remove('on')); }
+function clearPins(){document.querySelectorAll('.pin-ring').forEach(e=>e.classList.remove('on'))}
 
-function toggleEdit(id) {
-  if (openEdit && openEdit!==id) snapshot(openEdit);
-  openEdit = (openEdit===id) ? null : id;
-  renderCards();
-  if (openEdit) setTimeout(()=>el(`ti-${openEdit}`)?.focus(), 60);
+function toggleEdit(id){
+  if(openConn){snapshotConn(openConn);openConn=null}
+  if(openEdit&&openEdit!==id)snapshot(openEdit);
+  openEdit=(openEdit===id)?null:id;
+  renderAll();
+  if(openEdit) setTimeout(()=>el(`ti-${openEdit}`)?.focus(),60);
 }
 
-// ─────────────────────────────────────────────────────
-// TAGS
-// ─────────────────────────────────────────────────────
-function tagKey(e, id) {
-  if (e.key!=='Enter' && e.key!==',') return;
+function tagKey(e,id){
+  if(e.key!=='Enter'&&e.key!==',')return;
   e.preventDefault();
-  const val = e.target.value.trim().replace(/,$/,'');
-  if (!val) return;
+  const val=e.target.value.trim().replace(/,$/,'');
+  if(!val)return;
   snapshot(id);
-  if (!ud[id].iv.includes(val)) { ud[id].iv.push(val); saveUD(); }
-  e.target.value = '';
-  openEdit = id;
-  renderCards();
-  setTimeout(()=>el(`ti-${id}`)?.focus(), 60);
+  if(!ud[id].iv.includes(val)){ud[id].iv.push(val);saveUD()}
+  e.target.value='';openEdit=id;renderAll();
+  setTimeout(()=>el(`ti-${id}`)?.focus(),60);
 }
 
-function rmIv(id, idx) {
-  snapshot(id); ud[id].iv.splice(idx,1); saveUD();
-  openEdit = id; renderCards();
-  setTimeout(()=>el(`ti-${id}`)?.focus(), 60);
+function rmIv(id,idx){
+  snapshot(id);ud[id].iv.splice(idx,1);saveUD();
+  openEdit=id;renderAll();setTimeout(()=>el(`ti-${id}`)?.focus(),60);
 }
 
-// ─────────────────────────────────────────────────────
-// TRANSPORT
-// ─────────────────────────────────────────────────────
-function addLeg(id) {
-  snapshot(id);
-  ud[id].legs.push(newLeg());
-  saveUD(); openEdit = id; renderCards();
+function saveStop(id){
+  ud[id].host=el(`host-${id}`)?.value.trim()||'';
+  ud[id].notes=el(`notes-${id}`)?.value.trim()||'';
+  saveUD();openEdit=id;renderAll();
+  const m=el(`smsg-${id}`);if(m){m.classList.add('show');setTimeout(()=>m.classList.remove('show'),2200)}
 }
 
-function removeLeg(id, idx) {
-  snapshot(id);
-  ud[id].legs.splice(idx, 1);
-  saveUD(); openEdit = id; renderCards();
+// ── CONNECTOR INTERACTIONS ───────────────────────────
+function toggleConn(cid){
+  if(openEdit){snapshot(openEdit);openEdit=null}
+  if(openConn&&openConn!==cid)snapshotConn(openConn);
+  openConn=(openConn===cid)?null:cid;
+  if(openConn&&cd[openConn].legs.length===0){cd[openConn].legs.push(newLeg());saveCD()}
+  renderAll();
+  if(openConn) setTimeout(()=>el(`ctfrom-${openConn}-0`)?.focus(),80);
 }
 
-function setLegType(id, idx, type) {
-  snapshot(id);
-  ud[id].legs[idx].ttype = (ud[id].legs[idx].ttype===type) ? '' : type;
-  saveUD(); openEdit = id; renderCards();
+function addConnLeg(cid){snapshotConn(cid);cd[cid].legs.push(newLeg());saveCD();openConn=cid;renderAll()}
+function rmConnLeg(cid,idx){snapshotConn(cid);cd[cid].legs.splice(idx,1);saveCD();openConn=cid;renderAll()}
+
+function setConnLegType(cid,idx,type){
+  snapshotConn(cid);
+  cd[cid].legs[idx].ttype=cd[cid].legs[idx].ttype===type?'':type;
+  saveCD();openConn=cid;renderAll();
 }
 
-function onBoughtChange(id, idx) {
-  const chk = el(`tbought-${id}-${idx}`);
-  const txt = el(`tchktxt-${id}-${idx}`);
-  if (txt) txt.textContent = chk.checked ? 'Ya comprado ✓' : 'Sin comprar aún';
+function onConnPagChg(cid,idx){
+  const chk=el(`ctpag-${cid}-${idx}`),txt=el(`ctpagtxt-${cid}-${idx}`);
+  if(txt) txt.textContent=chk.checked?'Pagado ✓':'Sin pagar';
 }
 
-// ─────────────────────────────────────────────────────
-// SAVE
-// ─────────────────────────────────────────────────────
-function saveStop(id) {
-  const d = ud[id];
-  d.host  = el(`host-${id}`)?.value.trim()  || '';
-  d.notes = el(`notes-${id}`)?.value.trim() || '';
-  d.legs.forEach((leg, i) => {
-    leg.tfrom   = el(`tfrom-${id}-${i}`)?.value.trim()  || '';
-    leg.tto     = el(`tto-${id}-${i}`)?.value.trim()    || '';
-    leg.tvalue  = el(`tvalue-${id}-${i}`)?.value.trim() || '';
-    leg.tbought = el(`tbought-${id}-${i}`)?.checked     || false;
-  });
-  saveUD(); openEdit = id; renderCards();
-  const msg = el(`smsg-${id}`);
-  if (msg) { msg.classList.add('show'); setTimeout(()=>msg.classList.remove('show'), 2200); }
+function saveConn(cid){
+  snapshotConn(cid);openConn=cid;renderAll();
+  const m=el(`cmsg-${cid}`);if(m){m.classList.add('show');setTimeout(()=>m.classList.remove('show'),2200)}
 }
 
-// ─────────────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────────────
-renderCards();
+function setConnColor(cid,color){
+  snapshotConn(cid);
+  cd[cid].color=color;
+  saveCD();openConn=cid;renderAll();
+}
+
+// ── CHECKLIST INTERACTIONS ───────────────────────────
+function toggleCL(){clOpen=!clOpen;renderAll();if(clOpen) setTimeout(renderChecklist,50)}
+
+function startBought(id){clEditing=id;renderChecklist()}
+
+function confirmBought(id){
+  const val=el(`cl-real-${id}`)?.value.trim();
+  const item=clState.items.find(i=>i.id===id);
+  if(item){item.ok=true;item.real=val?parseInt(val.replace(/[^\d]/g,''))||item.est:item.est;saveCL()}
+  clEditing=null;renderChecklist();
+}
+
+// ── INIT ─────────────────────────────────────────────
+renderAll();
 </script>
 </body>
 </html>
